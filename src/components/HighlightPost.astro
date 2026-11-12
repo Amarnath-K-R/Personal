@@ -1,0 +1,46 @@
+---
+// The full story behind a highlight. Rendered inside the wall's dialog and on /highlights/<slug>/.
+import { Image } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+
+interface Props { post: CollectionEntry<'highlights'>; standalone?: boolean; }
+const { post, standalone = false } = Astro.props;
+const d = post.data;
+const { Content } = await render(post);
+const area = { cyan: 'imaging', violet: 'omics', pink: 'trust', amber: 'clinical' }[d.color];
+const Title = standalone ? 'h1' : 'h2';
+const titleId = `hl-title-${post.id}`;
+const ratio = d.cover ? `${d.cover.width} / ${d.cover.height}` : '4 / 3';
+// The hero's shape as a plain number, so the card can ease between photos of different shapes.
+const shape = (w: number, h: number) => (w / h).toFixed(4);
+const caption = d.cover ? d.credit : 'Original generated artwork · not a photograph';
+// The hero is a slideshow: the cover first (the wall's tile flies into it), then every other photo.
+const slides = d.cover ? d.photos : [];
+const sizes = '(min-width: 900px) 40vw, 88vw';
+---
+<article class="hl-post" data-post={post.id} data-title={d.title} aria-labelledby={titleId} hidden={!standalone}>
+  <div class="hl-post-top">
+    <figure class="hl-hero" data-slideshow={slides.length > 0 ? '' : undefined}>
+      <span class="print print-hero" data-hero style={`--ratio:${ratio};--shape:${d.cover ? shape(d.cover.width, d.cover.height) : shape(4, 3)}`}>
+        <span class="print-photo">
+          {d.cover
+            ? <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[800, 1200, 1600]} sizes={sizes} loading={standalone ? 'eager' : 'lazy'} draggable="false" class="is-shown" data-slide data-shape={shape(d.cover.width, d.cover.height)} data-caption={caption ?? ''} />
+            : <canvas class="print-art" data-cover data-seed={`moment-${post.id}`} data-area={area} width="900" height="675" aria-hidden="true"></canvas>}
+          {slides.map((photo) => <Image src={photo.src} alt={photo.alt} widths={[800, 1200, 1600]} sizes={sizes} draggable="false" data-slide data-shape={shape(photo.src.width, photo.src.height)} data-caption={photo.caption ?? ''} />)}
+        </span>
+        <span class="print-date">{d.date || d.place}</span>
+        {slides.length > 0 && <span class="hl-dots">
+          {[d.cover, ...slides].map((_, i) => <button type="button" data-slide-to={i} aria-label={`Show photo ${i + 1} of ${slides.length + 1}`} aria-current={i === 0 ? 'true' : undefined}></button>)}
+        </span>}
+      </span>
+      <figcaption class="hl-credit" data-slide-caption>{caption}</figcaption>
+    </figure>
+    <div class="hl-copy">
+      <p class="hl-meta">{d.place} <span aria-hidden="true">/</span> {d.venue}{d.date && ` · ${d.date}`}</p>
+      <Title id={titleId} data-typed>{d.title}</Title>
+      <p class="hl-summary" data-typed>{d.summary}</p>
+      <div class="hl-story"><Content /></div>
+      {d.links.length > 0 && <p class="hl-links">{d.links.map((link) => <a href={link.href} target="_blank" rel="noopener">{link.label} <span aria-hidden="true">↗</span></a>)}</p>}
+    </div>
+  </div>
+</article>

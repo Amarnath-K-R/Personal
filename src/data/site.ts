@@ -7,6 +7,7 @@ export const areas = {
 
 export const profile = {
   name: 'Amarnath K R',
+  photo: '/manus-storage/AMARNATH_7829df70.jpg', // the portrait; the one image besides each highlight's main photo that Google Images may show
   emailAmrita: 'kr_amarnath@cb.amrita.edu',
   emailStanford: 'amkr@stanford.edu',
   bio: 'Computational scientist in biomedical AI. I work with Dr Michael P Snyder in the Department of Genetics at Stanford University, and I co authored a 2026 paper in Cell. At Amrita Institute of Medical Sciences, I build deep learning systems and clinical software for retinal imaging and hospital data.',
@@ -194,56 +195,3 @@ export const publicationGroups = [
   { label: 'Submitted and in preparation', count: 3, key: 'Submitted and in preparation' },
 ] as const;
 
-export const moments = [
-  {
-    title: 'The AI of Oculomics',
-    caption: 'Metares 3.0 · AIvishkar · Kochi',
-    text: 'A talk on how the eye is a mirror of the body.',
-    place: 'Kochi',
-    color: 'amber',
-    featured: true,
-  },
-  {
-    title: 'Excellence in Ophthalmic Research and AI',
-    caption: 'Award · AIvishkar, Metares 3.0',
-    text: 'From the Department of Ophthalmology, AIMS Kochi. Presented by Dr Mona Duggal, Director, ICMR National Institute for Research in Digital Health.',
-    place: 'Kochi',
-    color: 'amber',
-  },
-  {
-    title: 'Hosting Metares 3.0',
-    caption: 'Fortune Hotel · Kochi',
-    text: 'Hosted the meeting, themed "Connecting Minds, Creating Futures".',
-    place: 'Kochi',
-    color: 'pink',
-  },
-  {
-    title: 'Stanford Genetics',
-    caption: "California · Jul to Sep '25",
-    text: 'A summer in the Department of Genetics, building VivOME with Dr Michael P Snyder.',
-    place: 'Stanford',
-    color: 'violet',
-  },
-  {
-    title: 'A paper in Cell',
-    caption: "Stanford · '26",
-    text: 'Co authored A Comparison of Deep Multiomics Profiles across Ethnicity, Geography, and Age, and built its HPOP web app.',
-    place: 'Stanford',
-    color: 'violet',
-  },
-  {
-    title: 'Presenting SEViT-GAN',
-    caption: "University of Calabria · 4 to 6 June '25",
-    text: 'ICICV 2025. My first international conference, and my first trip abroad.',
-    place: 'Calabria',
-    color: 'cyan',
-  },
-] as const;
-
-export const places = [
-  { label: 'Kochi · 9.93° N', query: 'Kochi' },
-  { label: 'Stanford · 37.43° N', query: 'Stanford' },
-  { label: 'Calabria · 39.36° N', query: 'Calabria' },
-] as const;
-
-// TODO: ask Amar for the date of Metares 3.0. Do not infer it from surrounding events.

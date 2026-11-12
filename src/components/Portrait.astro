@@ -1,6 +1,7 @@
 ---
+import { profile } from '../data/site';
 const { opening = false } = Astro.props;
-const source = '/manus-storage/AMARNATH_7829df70.jpg';
+const source = profile.photo;
 ---
 {opening ? (
   <figure class="opening-portrait" aria-label="Amarnath K R, portrait blended into the page atmosphere">

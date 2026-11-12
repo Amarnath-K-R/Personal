@@ -1,0 +1,131 @@
+@import '@fontsource-variable/fraunces';
+/* ---------- Prints: white cards around each photo (rail, dialog and post page) ---------- */
+.print {
+  position: relative; display: block; padding: 2.2% 2.2% 17%; /* thin border, wide bottom edge for the date */
+  border-radius: clamp(10px, 1.1vw, 16px);
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 26px 50px -22px rgb(0 0 0 / .75);
+}
+.print-photo { position: relative; display: block; aspect-ratio: var(--ratio, 4 / 3); overflow: hidden; border-radius: clamp(4px, .5vw, 8px); background: #e8ecf3; }
+.print-photo img, .print-photo canvas { display: block; width: 100%; height: 100%; object-fit: cover; background: center / cover no-repeat; -webkit-user-drag: none; }
+/* The date, written by hand in blue ink on the card's wide bottom edge. */
+.print-date { position: absolute; left: 4%; bottom: 4.4%; color: #1f45d6; font: italic 400 clamp(18px, 1.55vw, 26px)/1 var(--display-accent); letter-spacing: -.01em; transform: rotate(-3deg); transform-origin: left bottom; white-space: nowrap; }
+.print-note { position: absolute; right: 6px; bottom: 6px; max-width: calc(100% - 12px); padding: 3px 7px; border: 1px solid rgb(255 255 255 / .16); border-radius: 999px; background: rgb(6 8 14 / .62); color: rgb(238 242 255 / .84); font: 500 6px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+
+/* ---------- A stack on the wall: the main slab, with up to two more fanned behind it ---------- */
+.stack { position: relative; display: block; color: inherit; text-decoration: none; outline: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
+.stack-pile { position: relative; display: block; }
+.stack .print-top { z-index: 1; transition: transform .55s cubic-bezier(.2, .8, .2, 1); }
+/* Cards behind are a touch greyer, so the top card reads first. */
+.stack .print-back { position: absolute; inset: 0; transform: translate(var(--x1), var(--y1)) rotate(var(--r1)); background: #eef1f6; box-shadow: 0 1px 2px rgb(0 0 0 / .25), 0 14px 30px -20px rgb(0 0 0 / .6); transition: transform .55s cubic-bezier(.2, .8, .2, 1); }
+.stack .print-back-2 { transform: translate(var(--x2), var(--y2)) rotate(var(--r2)); }
+.stack .print-back .print-photo { height: 100%; aspect-ratio: auto; }
+.print-blank { background: #e6eaf1; }
+/* The title in bold on the card's bottom edge, the date in ink beside it. cqi = the card's inner width (95.6% of it). */
+.stack .print-top { container-type: inline-size; }
+.print-caption { position: absolute; left: 4%; right: 4%; bottom: 0; height: 17.78cqi; display: flex; align-items: center; justify-content: space-between; gap: 4cqi; }
+.print-title { display: -webkit-box; min-width: 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: #0d1430; font: 700 clamp(12px, 5.4cqi, 24px)/1.05 'Fraunces Variable', Georgia, serif; letter-spacing: -.015em; text-wrap: balance; }
+.print-caption .print-date { position: static; flex: none; transform-origin: right center; }
+.stack-away .print-top { visibility: hidden; }
+.stack-landing { z-index: 30; }
+.stack-landing .print-top { transition: none; } /* the hover lift's transition would chase the fly-back frame by frame */
+@media (hover: hover) {
+  .stack:hover .print-top { transform: translateY(-6px) scale(1.02); }
+  .stack:hover .print-back-1 { transform: translate(calc(var(--x1) * 2.2), calc(var(--y1) - 3%)) rotate(calc(var(--r1) * 1.7)); }
+  .stack:hover .print-back-2 { transform: translate(calc(var(--x2) * 2.2), calc(var(--y2) - 2%)) rotate(calc(var(--r2) * 1.7)); }
+}
+.stack:focus-visible .print-top { outline: 2px solid var(--accent); outline-offset: 5px; }
+
+/* ---------- The wall: a finite grid by default (no JS, phones, touch, reduced motion) ---------- */
+.wall-masthead { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+.wall-rail { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; width: min(1180px, calc(100% - 48px)); margin: 26px auto 0; font: 500 10px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.wall-rail a { color: #c9d5e8; text-decoration: none; -webkit-user-drag: none; }
+.wall-rail a:hover, .wall-rail a:focus-visible { color: var(--accent); }
+.wall-rail .wall-rail-back { padding: 9px 15px; border: 1px solid var(--glass-edge); border-radius: 999px; background: var(--glass-sheen), var(--glass-fill); box-shadow: var(--glass-shadow); color: #eef4ff; -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--lg-filter, var(--glass-blur)); }
+.wall-rail .wall-rail-back:hover, .wall-rail .wall-rail-back:focus-visible { border-color: var(--accent); }
+.wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); align-items: start; gap: 64px 44px; width: min(1180px, calc(100% - 48px)); margin: clamp(44px, 8vh, 80px) auto 0; }
+
+/* ---------- The rail (desktop, fine pointer, motion allowed) ---------- */
+.scene-mode #main > #moments.wall-endless { padding: 0; overflow: clip; }
+.wall-endless .scene-next-wrap { display: none; }
+.wall-endless .wall-stage { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: clip; cursor: grab; user-select: none; -webkit-user-select: none; }
+.wall-endless .wall-stage:active { cursor: grabbing; }
+/* Soft fade at the left and right edges, where slabs enter and leave. */
+.wall-endless .wall-stage::after { content: ''; position: absolute; z-index: 4; inset: 0; pointer-events: none; background: linear-gradient(to right, color-mix(in srgb, var(--ambient-deep) 72%, transparent), transparent 9% 91%, color-mix(in srgb, var(--ambient-deep) 72%, transparent)); }
+.wall-endless .wall-masthead { position: relative; z-index: 5; flex: none; width: auto; margin: 0; padding: clamp(24px, 4.6vh, 48px) clamp(36px, 4.4vw, 80px) 0; pointer-events: none; }
+.wall-endless .wall-masthead h2 { font-size: clamp(38px, 4.2vw, 68px); }
+/* One band under the heading; highlights.ts sizes, places and wraps the slabs. */
+.wall-endless .wall { position: relative; display: block; flex: 1; width: auto; margin: clamp(12px, 3vh, 30px) 0 clamp(18px, 4vh, 40px); }
+.wall-endless .stack { position: absolute; top: 0; left: 0; will-change: transform; }
+.wall-endless .print-note { font-size: 7px; }
+.wall-endless .wall-rail { position: absolute; z-index: 6; top: clamp(24px, 4.4vh, 44px); right: clamp(36px, 4.4vw, 80px); width: auto; margin: 0; padding: 5px 5px 5px 22px; border: 1px solid var(--glass-edge); border-radius: 999px; background: var(--glass-sheen), color-mix(in srgb, var(--ambient-deep) 38%, transparent); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--lg-filter, var(--glass-blur)); }
+
+/* ---------- The post (dialog over the wall, and the standalone page) ---------- */
+.highlight-dialog { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: #e6eefb; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgb(150 180 222 / .26) transparent; }
+.highlight-dialog::backdrop { background: rgb(3 6 16 / 0); transition: background .4s ease, backdrop-filter .4s ease; }
+.highlight-dialog.is-open::backdrop { background: rgb(3 6 16 / .86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.hl-close { position: fixed; z-index: 3; top: 22px; right: 24px; display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--glass-edge); border-radius: 50%; background: var(--glass-sheen), var(--glass-fill); box-shadow: var(--glass-shadow); color: #eef4ff; font: 400 15px/1 var(--sans); cursor: pointer; -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--lg-filter, var(--glass-blur)); }
+.hl-close:hover, .hl-close:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+.hl-post { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: clamp(76px, 12vh, 124px) 0 clamp(60px, 10vh, 100px); }
+.hl-post-top { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1fr); align-items: start; gap: clamp(40px, 6vw, 100px); }
+.hl-hero { position: sticky; top: 64px; margin: 0; }
+/* The card takes the current photo's shape (--shape = width / height, set per slide by post.ts) and eases from one shape
+   to the next. It fills the column, but is never taller than the screen below the sticky offset: a card is
+   width × (.956 / shape + .192) tall. A floor (360px) keeps tall photos from shrinking the card too far. Animating the one number keeps the card's width and the photo's height in step. */
+@property --shape { syntax: '<number>'; inherits: true; initial-value: 1.3333; }
+/* Always fits the screen's height: the post's top padding above the card, the caption and a margin below it.
+   The borders are set from --w too: a % padding would follow the column's width, not the card's. */
+.print-hero { --w: min(100%, calc((100svh - clamp(76px, 12vh, 124px) - 56px) / (.956 / var(--shape) + .192))); container-type: inline-size; width: var(--w); padding: calc(var(--w) * .022) calc(var(--w) * .022) calc(var(--w) * .17); transition: --shape .8s cubic-bezier(.65, 0, .35, 1); }
+.print-hero .print-date { font-size: clamp(24px, 2.1vw, 32px); }
+.print-hero .print-note { font-size: 8px; }
+.hl-credit { margin-top: 18px; color: #8ea0bd; font: 500 9px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.hl-meta { margin: 0 0 20px; color: var(--accent); font: 500 10px/1.5 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.hl-meta span { margin-inline: 4px; color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.hl-copy :is(h1, h2) { margin: 0 0 26px; color: #eef4ff; font: 820 clamp(44px, 5.4vw, 88px)/.92 var(--sans); letter-spacing: -.065em; text-transform: uppercase; text-wrap: balance; }
+.hl-summary { max-width: 52ch; margin: 0; color: #d6e1f2; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.55; }
+.hl-story p { max-width: 60ch; margin: 20px 0 0; color: #a7b6ce; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.72; }
+.hl-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 34px 0 0; font: 500 10px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.hl-links a { padding-bottom: 4px; border-bottom: 1px solid var(--glass-edge); color: #e6eefb; text-decoration: none; }
+.hl-links a:hover, .hl-links a:focus-visible { border-color: var(--accent); color: var(--accent); }
+/* Hero slideshow: photos cross-fade while the frame reshapes to fit the incoming one. */
+.print-hero .print-photo { aspect-ratio: auto; height: calc(100cqi / var(--shape)); }
+.print-hero .print-photo img { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; }
+.print-hero .print-photo img.is-shown { opacity: 1; }
+.hl-dots { position: absolute; right: 2.5%; bottom: 5.4%; display: flex; gap: 2px; }
+.hl-dots button { display: grid; place-items: center; width: 22px; height: 22px; padding: 0; border: 0; background: none; cursor: pointer; }
+.hl-dots button::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #c5cddb; transition: background-color .3s ease, transform .3s ease; }
+.hl-dots button[aria-current]::before { background: #1f45d6; transform: scale(1.2); }
+.hl-dots button:hover::before { background: #6f86d6; }
+.hl-dots button:focus-visible { outline: 2px solid #1f45d6; outline-offset: -2px; border-radius: 50%; }
+.hl-credit:empty { display: none; }
+/* Typing: characters appear one after another from --t0, --step apart (set by post.ts as each block comes into view). */
+.hl-typed .hl-char { opacity: 0; }
+.hl-typed.is-typing .hl-char { opacity: 1; transition: opacity .05s linear calc(var(--t0, 0s) + var(--i) * var(--step, 8ms)); }
+.highlight-page { position: relative; z-index: 1; min-height: 100vh; }
+.hl-back { display: inline-block; margin: 30px 0 0 max(24px, calc((100% - 1180px) / 2)); color: #c9d5e8; font: 500 10px/1.4 var(--mono); letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+.hl-back:hover, .hl-back:focus-visible { color: var(--accent); }
+
+@media (max-width: 860px) {
+  .hl-post-top { grid-template-columns: 1fr; }
+  .hl-hero { position: static; }
+  .print-hero { --w: min(100%, 520px, calc((100svh - clamp(76px, 12vh, 124px) - 56px) / (.956 / var(--shape) + .192))); margin-inline: auto; }
+  .hl-credit { text-align: center; }
+}
+@media (max-width: 700px) {
+  .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 18px; width: calc(100% - 32px); }
+  .wall-masthead, .wall-rail { width: calc(100% - 32px); }
+  .print-date { font-size: 16px; }
+  .print-caption { gap: 3cqi; }
+  /* Phone cards are narrow: the title gets the whole edge (the date is still in the post). */
+  .print-caption .print-date { display: none; }
+  .print-title { font-size: 11.5px; line-height: 1.05; }
+  .print-note { right: 4px; bottom: 4px; padding: 2px 5px; font-size: 5px; }
+  .hl-post { width: calc(100% - 32px); }
+  .hl-close { top: 14px; right: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stack .print-top, .stack .print-back, .highlight-dialog::backdrop, .print-hero, .print-hero .print-photo img { transition: none; }
+  .stack:hover .print-top { transform: none; }
+  .stack:hover .print-back-1 { transform: translate(var(--x1), var(--y1)) rotate(var(--r1)); }
+  .stack:hover .print-back-2 { transform: translate(var(--x2), var(--y2)) rotate(var(--r2)); }
+}

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://innovatewithamar.com/sitemap-index.xml

@@ -15,3 +15,6 @@ design-reference/
 
 # Resume source has a phone number; the repo is public
 Amarnath_K_R_Resume.pdf
+
+# Raw highlight photos and notes (stripped, resized copies go into src/content/highlights/)
+/highlights/

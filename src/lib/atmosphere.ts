@@ -5,6 +5,7 @@ const palettes = {
   atmosphere: { name: 'Air · Water', a: '#2f7bff', b: '#18b4ff', c: '#5cf0ff', accent: '#b4f4ff', base: '#041a78', glow: '#1250ff', deep: '#020b3a', glowA: '#1458ff', glowB: '#00d4ff', hot: '#2f80ff', cool: '#4df0ff' },
   ember: { name: 'Fire · Sun', a: '#ed2939', b: '#ff5b2f', c: '#ffb63e', accent: '#ffd0a2', base: '#34060b', glow: '#b9192a', deep: '#150205', glowA: '#d4142a', glowB: '#ff7a1a', hot: '#ff2a44', cool: '#ffa31a' },
   verdant: { name: 'Nature · Flora', a: '#0d9d42', b: '#72e33d', c: '#9eea2d', accent: '#d3f7a9', base: '#02261a', glow: '#148242', deep: '#01100a', glowA: '#06a84a', glowB: '#4dff2a', hot: '#10d060', cool: '#7dff3a' },
+  neon: { name: 'Neon blue', a: '#1f51ff', b: '#4d4dff', c: '#8aa4ff', accent: '#a6b9ff', base: '#020833', glow: '#1b3cff', deep: '#01031a', glowA: '#1f51ff', glowB: '#3d3bff', hot: '#2a5bff', cool: '#5f7dff' },
   violet: { name: 'Violet', a: '#7a30ff', b: '#5a6bff', c: '#c4b0ff', accent: '#e0d2ff', base: '#06011a', glow: '#5a18d0', deep: '#020008', glowA: '#6a1fe6', glowB: '#2a6bff', hot: '#8c36ff', cool: '#3f8cff' },
 } as const;
 export type AtmosphereKey = keyof typeof palettes;
@@ -28,7 +29,7 @@ export function initAtmosphere() {
   let tween: gsap.core.Tween | null = null;
   let frame = 0;
   let anchors: { y: number; key: AtmosphereKey }[] = [];
-  const defaults: Record<string, AtmosphereKey> = { top: 'night', about: 'atmosphere', work: 'violet', publications: 'verdant', moments: 'ember', contact: 'atmosphere' };
+  const defaults: Record<string, AtmosphereKey> = { top: 'night', about: 'atmosphere', work: 'violet', publications: 'verdant', moments: 'neon', contact: 'atmosphere' };
   const sections = [...document.querySelectorAll<HTMLElement>('main > section[id]')];
   let sceneId = body.dataset.scene || '';
 

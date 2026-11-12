@@ -9,14 +9,17 @@ import '../styles/scenes.css';
 import '../styles/observatory.css';
 import '../styles/artistic.css';
 import '../styles/opening.css';
+import '../styles/highlights.css';
 import LiquidAtmosphere from '../components/LiquidAtmosphere.astro';
 import Journey from '../components/Journey.astro';
-const { title = 'Amarnath K R · Researcher in Biomedical AI', description = 'Amarnath K R (Amar) is a researcher in biomedical AI, working across retinal imaging, multiomics and clinical software.', projectArea = null, noindex = false } = Astro.props;
+const { title = 'Amarnath K R · Researcher in Biomedical AI', description = 'Amarnath K R (Amar) is a researcher in biomedical AI, working across retinal imaging, multiomics and clinical software.', projectArea = null, noindex = false, image } = Astro.props;
 const url = new URL(Astro.url.pathname, Astro.site).href;
+const imageUrl = image ? new URL(image, Astro.site).href : null;
 const person = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: profile.name,
+  image: new URL(profile.photo, Astro.site).href,
   alternateName: ['Amarnath KR', 'Amarnath K.R.', 'Amar'],
   jobTitle: 'Researcher',
   description: profile.bio,
@@ -46,7 +49,8 @@ const person = {
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Amarnath K R" />
     <meta property="og:url" content={url} />
-    <meta name="twitter:card" content="summary" />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
   <body data-project-area={projectArea ?? ''} data-atmosphere="atmosphere" data-atmosphere-mode="auto">

@@ -179,13 +179,18 @@ export function initJourney() {
   function resetScroll(area: Area) {
     area.element.scrollTop = 0;
   }
-  function scrollToInternalTarget(target: HTMLElement, smooth = false) {
-    if (ownerIndex(target) !== active) return;
+  function placeAt(target: HTMLElement, smooth = false) {
     const area = areas[active].element;
+    // Divided by the scene's scale, so this is right even mid-transition (the entering scene starts at scale 1.006).
+    const scale = area.getBoundingClientRect().height / area.offsetHeight || 1;
     area.scrollTo({
-      top: Math.max(0, target.getBoundingClientRect().top - area.getBoundingClientRect().top + area.scrollTop - 18),
+      top: Math.max(0, (target.getBoundingClientRect().top - area.getBoundingClientRect().top) / scale + area.scrollTop - 18),
       behavior: smooth ? 'smooth' : 'auto',
     });
+  }
+  function scrollToInternalTarget(target: HTMLElement, smooth = false) {
+    if (ownerIndex(target) !== active) return;
+    placeAt(target, smooth);
     focusInternalTarget(target);
   }
   function activate(index: number, reset = true) {
@@ -264,13 +269,14 @@ export function initJourney() {
     timeline.to(leaving, { autoAlpha: .68, y: -direction * 10, scale: .994, duration: .46, ease: 'power1.inOut' }, 0);
     timeline.to(titleCurtain!, { clipPath: mask.full, duration: .5, ease: 'power3.inOut' }, 0);
     timeline.fromTo(titleCurtainLabel!, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .28, ease: 'power2.out' }, .2);
-    timeline.add(() => activate(index), .48);
+    timeline.add(() => { activate(index); if (target && target !== entering) placeAt(target); }, .48);
     timeline.fromTo(entering, { autoAlpha: .5, y: direction * 9, scale: 1.006 }, { autoAlpha: 1, y: 0, scale: 1, duration: .5, ease: 'power2.out' }, .48);
     timeline.to(titleCurtainLabel!, { autoAlpha: 0, y: -5, duration: .18, ease: 'power1.out' }, .83);
     timeline.to(titleCurtain!, { clipPath: mask.close, duration: .52, ease: 'power3.inOut' }, .82);
   }
   function restoreFromHash() {
-    if (projectOpen) return;
+    // Pushed overlay URLs (/work/…, /highlights/…) belong to their overlays, not to scene travel.
+    if (projectOpen || location.pathname !== '/') return;
     if (busy) { timeline?.progress(1); return; }
     const resolution = resolveHash();
     if (resolution.index < 0) return;

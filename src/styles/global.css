@@ -104,8 +104,8 @@ a { color: inherit; }
 .work-intro { padding-top: clamp(100px, 16vh, 190px); padding-bottom: clamp(54px, 9vh, 108px); }
 .work-intro .eyebrow { margin-bottom: 26px; }
 .work-intro-grid { display: grid; grid-template-columns: 1.2fr .7fr; align-items: end; gap: clamp(40px, 9vw, 140px); }
-.work-intro h2, .about-opening h2, .publication-heading h2, .moments-heading h2 { margin: 0; font: 400 clamp(54px, 8.2vw, 116px)/.86 var(--serif); letter-spacing: -.035em; }
-.work-intro h2 em, .about-opening h2 em, .publication-heading h2 em, .moments-heading h2 em { color: var(--green); font-weight: 400; }
+.work-intro h2, .about-opening h2, .publication-heading h2, .wall-masthead h2 { margin: 0; font: 400 clamp(54px, 8.2vw, 116px)/.86 var(--serif); letter-spacing: -.035em; }
+.work-intro h2 em, .about-opening h2 em, .publication-heading h2 em, .wall-masthead h2 em { color: var(--green); font-weight: 400; }
 .work-intro-grid > p { max-width: 36ch; margin: 0 0 8px; color: var(--muted); font-size: 14px; }
 .feature-reel { position: relative; height: 300svh; }
 .feature-viewport { position: sticky; top: 0; height: 100svh; min-height: 620px; overflow: hidden; background: var(--green-deep); color: var(--paper-white); }
@@ -222,27 +222,6 @@ a { color: inherit; }
 
 /* Moments as an editorial timeline */
 .moments-section { padding: clamp(104px, 17vh, 190px) 0 clamp(104px, 16vh, 180px); background: #e7e8df; }
-.moments-heading { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 35px; }
-.moments-heading .eyebrow { grid-column: 1 / -1; }
-.moments-heading h2 { font-size: clamp(64px, 9vw, 126px); }
-.moment-jumps { display: grid; gap: 6px; min-width: 165px; }
-.location-link { display: flex; justify-content: space-between; gap: 20px; padding: 8px 0; border: 0; border-bottom: 1px solid #c7cbbf; background: transparent; color: var(--ink-soft); font-size: 9px; text-align: left; cursor: pointer; }
-.location-link span { color: var(--green); font-size: 14px; }
-.moment-timeline { position: relative; display: grid; gap: 0; margin-top: clamp(65px, 10vh, 115px); }
-.moment-timeline::before { position: absolute; top: 0; bottom: 0; left: 31px; width: 1px; content: ''; background: #c4c9bf; }
-.moment-row { position: relative; display: grid; grid-template-columns: 64px minmax(220px,.72fr) minmax(260px,1fr); align-items: center; gap: clamp(24px, 5vw, 72px); min-height: 250px; padding: 28px 0; border-top: 1px solid #c4c9bf; }
-.moment-row:last-child { border-bottom: 1px solid #c4c9bf; }
-.moment-marker { position: relative; z-index: 2; align-self: stretch; display: flex; flex-direction: column; align-items: center; gap: 14px; color: var(--muted); font: 500 8px var(--mono); }
-.moment-marker i { display: block; width: 9px; height: 9px; border: 1px solid var(--green); border-radius: 50%; background: #e7e8df; }
-.moment-row-featured .moment-marker i { border-color: var(--rust); background: var(--rust); box-shadow: 0 0 0 4px #e7e8df; }
-.moment-visual { position: relative; height: 205px; margin: 0; overflow: hidden; background: #d4d9cc; }
-.moment-art { display: block; width: 100%; height: 100%; }
-.moment-visual figcaption { position: absolute; right: 9px; bottom: 9px; padding: 4px 7px; background: rgb(243 242 236 / .88); color: var(--muted); font: 500 7px var(--mono); }
-.moment-copy { max-width: 600px; padding: 5px 0; }
-.moment-location { margin: 0 0 13px; color: var(--green); font: 500 8px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-.moment-location span { margin-inline: 5px; color: var(--rust); }
-.moment-copy h3 { margin: 0 0 8px; font: 400 clamp(29px, 4.3vw, 52px)/.95 var(--serif); letter-spacing: -.02em; }
-.moment-copy > p:last-child { max-width: 51ch; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
 
 /* Contact and footer */
 .contact-section { padding-top: clamp(100px, 17vh, 200px); color: var(--paper); background: var(--green-deep); }
@@ -461,19 +440,6 @@ a { color: inherit; }
   .pub-main strong { font-size: 11px; }
   .pub-main small { font-size: 8px; }
   .moments-section { padding: 87px 0 90px; }
-  .moments-heading { grid-template-columns: 1fr; gap: 23px; }
-  .moments-heading h2 { font-size: clamp(62px, 16vw, 94px); }
-  .moment-jumps { grid-template-columns: repeat(3,1fr); gap: 11px; }
-  .location-link { gap: 7px; font-size: 8px; }
-  .moment-timeline { margin-top: 48px; }
-  .moment-timeline::before { left: 8px; }
-  .moment-row { grid-template-columns: 24px 1fr; gap: 5px 15px; min-height: 0; padding: 25px 0; }
-  .moment-marker { grid-column: 1; grid-row: 1 / span 2; align-items: flex-start; gap: 13px; }
-  .moment-marker i { margin-left: 4px; }
-  .moment-visual { grid-column: 2; grid-row: 1; height: 190px; }
-  .moment-copy { grid-column: 2; grid-row: 2; padding-top: 12px; }
-  .moment-copy h3 { font-size: 35px; }
-  .moment-copy > p:last-child { font-size: 10px; }
   .contact-section { padding-top: 87px; }
   .contact-inner { padding-bottom: 77px; }
   .contact-inner h2 { margin-top: 34px; font-size: clamp(78px, 20vw, 126px); }

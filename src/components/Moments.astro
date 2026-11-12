@@ -1,29 +1,34 @@
 ---
-import { moments, places } from '../data/site';
+import { getCollection } from 'astro:content';
 import DisplayText from './DisplayText.astro';
 import SceneNext from './SceneNext.astro';
+import HighlightStack from './HighlightStack.astro';
+
+const posts = (await getCollection('highlights')).sort((a, b) => a.data.order - b.data.order);
+// The wall's order: reading order, except two highlights from the same place never sit side by side.
+const queue = [...posts];
+const sequence: typeof posts = [];
+while (queue.length) {
+  const next = queue.findIndex((post) => post.data.place !== sequence.at(-1)?.data.place);
+  sequence.push(...queue.splice(Math.max(next, 0), 1));
+}
+// One slab per highlight: highlights.ts wraps them round as the rail drifts.
 ---
-<section class="moments-section" id="moments" data-sec="Notes" aria-labelledby="moments-title">
-  <div class="moments-heading content-width" data-reveal>
-    <p class="eyebrow"><span class="eyebrow-index">04</span> Along the way</p>
-    <h2 id="moments-title" aria-label="Work happens in good company."><DisplayText text="Work happens" /><br /><em>in good company.</em></h2>
-    <div class="moment-jumps" role="group" aria-label="Jump to moments by place">
-      {places.map((place) => <button type="button" class="location-link" data-place-jump={place.query}>{place.label}<span aria-hidden="true">↓</span></button>)}
+<section class="moments-section" id="moments" data-sec="Highlights" aria-labelledby="moments-title">
+  <div class="wall-stage" data-wall-stage>
+    <header class="wall-masthead" data-reveal>
+      <p class="eyebrow"><span class="eyebrow-index">04</span> Along the way</p>
+      <h2 id="moments-title" aria-label="Where the work has taken me."><DisplayText text="Where the work" /><br /><em>has taken me.</em></h2>
+    </header>
+    <nav class="wall-rail" aria-label="Leave highlights">
+      <a href="#work">Projects</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+      <a class="wall-rail-back" href="#top"><span aria-hidden="true">↑</span> Back to About</a>
+    </nav>
+    <div class="wall" data-wall>
+      {sequence.map((post, i) => <HighlightStack post={post} instance={i} />)}
     </div>
-  </div>
-  <div class="moment-timeline content-width">
-    {moments.map((moment, index) => <article class:list={["moment-row", moment.featured && "moment-row-featured"]} data-moment data-place={moment.place} data-reveal>
-      <div class="moment-marker"><span>{String(index + 1).padStart(2, '0')}</span><i aria-hidden="true"></i></div>
-      <figure class="moment-visual" data-moment-art data-color={moment.color}>
-        <canvas class="moment-art" data-cover data-seed={`moment-${index}-${moment.title}`} data-area={moment.color === 'cyan' ? 'imaging' : moment.color === 'violet' ? 'omics' : moment.color === 'pink' ? 'trust' : 'clinical'} aria-hidden="true"></canvas>
-        <figcaption>Original generated artwork · not a photograph</figcaption>
-      </figure>
-      <div class="moment-copy">
-        <p class="moment-location">{moment.place} <span aria-hidden="true">/</span> {moment.caption}</p>
-        <h3>{moment.title}</h3>
-        <p>{moment.text}</p>
-      </div>
-    </article>)}
   </div>
   <SceneNext href="#top" kicker="BACK TO / 01" label="About & me" final />
 </section>

@@ -1,6 +1,6 @@
 // Hover only warps how things are drawn (the lens); the stars themselves never get pushed.
 // Page background: stars, aurora ribbons, comets and a pointer "gravity lens", drawn on one fixed canvas.
-// Colours follow the live palette (--orb-cool / --orb-hot), so the sky shifts with About, Research, Notes and Contact.
+// Colours follow the live palette (--orb-cool / --orb-hot), so the sky shifts with About, Research, Highlights and Contact.
 type Star = { x: number; y: number; vx: number; vy: number; radius: number; phase: number; twinkle: number; hot: boolean };
 type Comet = { x: number; y: number; vx: number; vy: number; age: number; life: number; hot: boolean };
 type RGB = [number, number, number];

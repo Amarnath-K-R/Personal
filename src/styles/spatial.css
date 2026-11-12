@@ -81,9 +81,9 @@
 .universe-core span { display: block; position: absolute; inset: 20%; border-radius: 50%; background: radial-gradient(ellipse,color-mix(in srgb,var(--liquid-c) 10%,transparent),transparent 62%); }
 .universe-coordinate { position: absolute; right: 14px; top: 18px; font: 500 8px var(--mono); letter-spacing: .18em; color: #708aaa; }
 .universe-nodes { position: absolute; inset: 0; }
-.project-node { display: flex; align-items: center; gap: 12px; position: absolute; left: var(--fallback-x); top: var(--fallback-y); width: 220px; min-height: 105px; padding: 13px 13px 13px 10px; border: 1px solid rgb(207 226 255 / .11); border-radius: 21px; text-decoration: none; background: linear-gradient(140deg,rgb(219 235 255 / .075),rgb(171 208 255 / .012)); backdrop-filter: blur(13px); -webkit-backdrop-filter: blur(13px); box-shadow: 0 13px 50px rgb(0 0 15 / .1),inset 0 1px 0 rgb(236 248 255 / .06); transform: translate(-50%,-50%); color: #e4eeff; transition: background .3s,border-color .3s,box-shadow .3s; }
+.project-node { display: flex; align-items: center; gap: 12px; position: absolute; left: var(--fallback-x); top: var(--fallback-y); width: 220px; min-height: 105px; padding: 13px 13px 13px 10px; border: 1px solid rgb(207 226 255 / .11); border-radius: 21px; text-decoration: none; background: var(--glass-sheen),var(--glass-fill); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--lg-filter,var(--glass-blur)); box-shadow: var(--glass-shadow); transform: translate(-50%,-50%); color: #e4eeff; transition: background .3s,border-color .3s,box-shadow .3s; }
 .js-ready .project-node { left: 50%; top: 50%; }
-.project-node:hover, .project-node:focus-visible, .project-node.node-selected { background: linear-gradient(140deg,rgb(218 237 255 / .12),rgb(209 231 255 / .035)); border-color: color-mix(in srgb,var(--node-color) 48%,transparent); box-shadow: 0 14px 44px rgb(0 0 15 / .14),0 0 30px color-mix(in srgb,var(--node-color) 7%,transparent),inset 0 1px 0 rgb(232 246 255 / .14); }
+.project-node:hover, .project-node:focus-visible, .project-node.node-selected { background: var(--glass-sheen),color-mix(in srgb,var(--node-color) 8%,rgb(255 255 255 / .03)); border-color: color-mix(in srgb,var(--node-color) 48%,transparent); box-shadow: var(--glass-shadow),0 0 30px color-mix(in srgb,var(--node-color) 10%,transparent); }
 .node-signal { position: relative; display: grid; place-items: center; flex: 0 0 38px; height: 38px; }
 .node-signal i { position: absolute; inset: 6px; border-radius: 50%; background: radial-gradient(circle at 30% 25%,#eff7ff,var(--node-color) 15%,color-mix(in srgb,var(--node-color) 38%,#061022) 61%,#030816); box-shadow: 0 0 20px color-mix(in srgb,var(--node-color) 25%,transparent),inset -1px -2px 4px rgb(230 246 255 / .28); }
 .node-signal b { position: relative; opacity: 0; font: 600 9px var(--mono); color: #0a1223; transition: opacity .3s; }
@@ -218,7 +218,8 @@ body:not(.js-ready) .portrait button { display: none; }
 .universe-stars { z-index: 1; mask-image: radial-gradient(ellipse 78% 82% at 50% 50%,#000 70%,transparent 100%); -webkit-mask-image: radial-gradient(ellipse 78% 82% at 50% 50%,#000 70%,transparent 100%); }
 .universe-core { width: min(760px,70%); height: 640px; }
 @media (min-width: 701px) {
-  [data-view='spatial'] .project-node { width: auto; min-height: 0; padding: 5px 14px 5px 5px; gap: 8px; border-radius: 999px; border-color: transparent; background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; white-space: nowrap; }
+  /* Each project is a clear glass pill: a thin hairline edge, no frost or thick inner rims. Hover tints the edge in the project's colour. */
+  [data-view='spatial'] .project-node { width: auto; min-height: 0; padding: 5px 14px 5px 5px; gap: 8px; border-radius: 999px; border-color: rgb(255 255 255 / .15); background: rgb(255 255 255 / .012); box-shadow: 0 14px 30px -18px rgb(0 0 0 / .7); white-space: nowrap; }
   [data-view='spatial'] .project-node .node-signal { flex-basis: 24px; height: 24px; }
   [data-view='spatial'] .project-node .node-signal i { inset: 3px; box-shadow: 0 0 16px color-mix(in srgb,var(--node-color) 70%,transparent),0 0 34px color-mix(in srgb,var(--node-color) 35%,transparent),inset -1px -2px 4px rgb(0 0 0 / .4); }
   [data-view='spatial'] .project-node .node-direction { display: none; }
@@ -226,6 +227,6 @@ body:not(.js-ready) .portrait button { display: none; }
   [data-view='spatial'] .project-node .node-label small { font-size: 9px; letter-spacing: .09em; }
   [data-view='spatial'] .project-node .node-status { font-size: 10px; }
   [data-view='spatial'] .project-node .node-label strong { font-size: 13px; }
-  [data-view='spatial'] .project-node:hover, [data-view='spatial'] .project-node:focus-visible, [data-view='spatial'] .project-node.node-selected { opacity: 1 !important; z-index: 20 !important; background: linear-gradient(140deg,rgb(219 235 255 / .16),rgb(171 208 255 / .05)); border-color: color-mix(in srgb,var(--node-color) 55%,transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  [data-view='spatial'] .project-node:hover, [data-view='spatial'] .project-node:focus-visible, [data-view='spatial'] .project-node.node-selected { opacity: 1 !important; z-index: 20 !important; background: color-mix(in srgb,var(--node-color) 6%,rgb(255 255 255 / .015)); border-color: color-mix(in srgb,var(--node-color) 50%,transparent); box-shadow: 0 0 24px color-mix(in srgb,var(--node-color) 12%,transparent),0 14px 30px -18px rgb(0 0 0 / .7); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--lg-filter,var(--glass-blur)); }
   [data-view='spatial'] .project-node:hover .node-direction, [data-view='spatial'] .project-node:focus-visible .node-direction { display: block; }
 }

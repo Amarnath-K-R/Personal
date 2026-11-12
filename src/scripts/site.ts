@@ -8,6 +8,9 @@ import { initJourney } from '../lib/journey';
 import { initPortraits } from '../lib/portrait';
 import { initSky } from '../lib/sky';
 import { initFilm } from '../lib/film';
+import { initHighlights } from '../lib/highlights';
+import { initGlass } from '../lib/glass';
+import { initPosts } from '../lib/post';
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.ticker.lagSmoothing(0);
@@ -18,6 +21,9 @@ let reduced = reducedQuery.matches;
 document.body.classList.add('js-ready');
 document.body.classList.toggle('reduced-motion', reduced);
 initJourney();
+initHighlights(); // after initJourney: its popstate listener must run after the journey's
+initGlass();
+initPosts();
 initArtwork();
 initAtmosphere();
 initUniverse();
@@ -241,14 +247,6 @@ document.addEventListener('click', (event) => {
   else if (lenis) lenis.scrollTo(Math.max(0, target.getBoundingClientRect().top + scrollY - 112), { duration: .9 });
   else window.scrollTo({ top: Math.max(0, target.getBoundingClientRect().top + scrollY - 112), behavior: reduced ? 'auto' : 'smooth' });
 });
-$$<HTMLButtonElement>('[data-place-jump]').forEach((button) => button.addEventListener('click', () => {
-  const target = $<HTMLElement>(`[data-moment][data-place="${CSS.escape(button.dataset.placeJump || '')}"]`);
-  if (!target) return;
-  const scene = target.closest<HTMLElement>('[data-scene-scroll]');
-  if (scene) scene.scrollTo({ top: target.getBoundingClientRect().top - scene.getBoundingClientRect().top + scene.scrollTop - 18, behavior: reduced ? 'auto' : 'smooth' });
-  else if (lenis) lenis.scrollTo(target, { offset: -110, duration: .8 });
-  else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-}));
 const toast = $('#toast-message');
 let toastTimer = 0;
 function showToast(text: string) {
