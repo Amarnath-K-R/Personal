@@ -1,0 +1,17 @@
+node_modules/
+.astro/
+dist/
+.env
+.env.*
+!.env.example
+screenshots/
+design-reference/
+*.zip
+.DS_Store
+
+# Local caches
+.wrangler/
+.impeccable/hook.cache.json
+
+# Resume source has a phone number; the repo is public
+Amarnath_K_R_Resume.pdf

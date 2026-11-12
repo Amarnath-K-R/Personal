@@ -1,0 +1,39 @@
+---
+import { publications, publicationGroups } from '../data/site';
+import DisplayText from './DisplayText.astro';
+import SceneNext from './SceneNext.astro';
+const groupColor: Record<string, string> = {
+  Published: 'var(--green)',
+  Accepted: 'var(--blue)',
+  'Under revision': 'var(--rust)',
+  'Submitted and in preparation': 'var(--plum)',
+};
+---
+<section class="publication-section content-width" id="publications" data-sec="Research" aria-labelledby="publication-title">
+  <div class="publication-heading" data-reveal>
+    <div><p class="eyebrow"><span class="eyebrow-index">03</span> The record</p><h2 id="publication-title" aria-label="Research in progress."><DisplayText text="Research" /><br /><em>in progress.</em></h2></div>
+    <p class="publication-intro">Papers, proceedings and work still moving through review. Status is stated plainly.</p>
+  </div>
+  <div class="publication-toolbar">
+    <span class="publication-count"><strong>11</strong><span>works · current index</span></span>
+    <div class="publication-filters" role="group" aria-label="Filter publications by status">
+      {publicationGroups.map((group, index) => <button class="filter-chip" type="button" data-pub-filter={group.key} aria-pressed={index === 0 ? 'true' : 'false'}>{group.label}<span>{String(group.count).padStart(2, '0')}</span></button>)}
+    </div>
+  </div>
+  <div class="publication-list" id="publication-list">
+    {publications.map((publication, index) => {
+      const row = <>
+        <span class="pub-number">{String(index + 1).padStart(2, '0')}</span>
+        <span class="pub-main"><strong>{publication.title}</strong>{publication.detail && <small>{publication.detail}</small>}</span>
+        <span class="pub-role">{publication.role}</span>
+        <span class="pub-status" style={`--status-accent:${groupColor[publication.group]}`}><i aria-hidden="true"></i>{publication.status}</span>
+        <span class="pub-arrow" aria-hidden="true">{publication.doi ? '↗' : '—'}</span>
+      </>;
+      return publication.doi
+        ? <a class="pub-row" href={`https://doi.org/${publication.doi}`} target="_blank" rel="noreferrer" data-pub-row data-group={publication.group} data-reveal>{row}</a>
+        : <div class="pub-row" data-pub-row data-group={publication.group} data-reveal>{row}</div>;
+    })}
+  </div>
+  <p class="publication-note">Only papers with a supplied DOI link out. The status shown is the supplied status.</p>
+  <SceneNext href="#moments" kicker="NEXT / 04" label="Notes" />
+</section>

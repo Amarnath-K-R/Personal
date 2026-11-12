@@ -1,0 +1,27 @@
+---
+const { opening = false } = Astro.props;
+const source = '/manus-storage/AMARNATH_7829df70.jpg';
+---
+{opening ? (
+  <figure class="opening-portrait" aria-label="Amarnath K R, portrait blended into the page atmosphere">
+    <div class="opening-photo-material">
+      <img class="opening-photo" src={source} alt="Amarnath K R" width="378" height="496" loading="eager" fetchpriority="high" />
+      <div class="opening-reflection opening-reflection-colour" aria-hidden="true"></div>
+      <div class="opening-reflection opening-reflection-rim" aria-hidden="true"></div>
+      <div class="opening-reflection opening-reflection-shadow" aria-hidden="true"></div>
+    </div>
+    <figcaption class="sr-only">Original portrait, with decorative light in the website's current colours.</figcaption>
+  </figure>
+) : (
+  <figure class="portrait" data-portrait>
+    <div class="portrait-field" aria-hidden="true"></div>
+    <div class="portrait-inner" data-portrait-reveal>
+      <img class="portrait-base" src={source} alt="Amarnath K R" width="378" height="496" loading="eager" />
+      <img class="portrait-colour" src={source} alt="" aria-hidden="true" width="378" height="496" loading="eager" />
+      <div class="portrait-light" aria-hidden="true"></div>
+      <div class="portrait-grain" aria-hidden="true"></div>
+    </div>
+    <div class="portrait-reticle" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <figcaption><span>Amarnath K R <small>Kochi, India</small></span><button type="button" data-portrait-toggle aria-pressed="false">Reveal colour <span aria-hidden="true">◉</span></button></figcaption>
+  </figure>
+)}

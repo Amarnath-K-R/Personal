@@ -1,0 +1,44 @@
+.journey-transiting .site-shell { pointer-events: none; }
+.scene-next-wrap { position: relative; z-index: 2; display: flex; justify-content: flex-end; margin: clamp(48px,8vh,86px) 0 22px; }
+.scene-scroll-cue { display: inline-flex; align-items: center; gap: 11px; padding: 10px 16px; color: var(--ink-soft); font: 500 9px/1.4 var(--mono); letter-spacing: .11em; text-decoration: none; text-transform: uppercase; opacity: .76; transition: color .2s ease,opacity .2s ease,transform .2s ease; }
+.scene-scroll-cue-arrow { color: var(--accent); font: 400 15px/1 var(--sans); opacity: .72; }
+.scene-scroll-cue:hover { color: var(--paper); opacity: 1; }
+.scene-scroll-cue:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.scene-mode .scene-scroll-cue { visibility: hidden; pointer-events: none; opacity: 0; transform: translateY(5px); }
+.scene-mode[data-scroll-edge='end'] .scene-scroll-cue { visibility: visible; pointer-events: auto; opacity: .76; transform: none; }
+.scene-mode[data-scroll-edge='end'] .scene-scroll-cue:hover { opacity: 1; }
+.scene-title-curtain { position: fixed; z-index: 500; inset: 0; overflow: hidden; clip-path: circle(0% at 50% 50%); background: radial-gradient(ellipse at 70% 30%,color-mix(in srgb,var(--passage-tone,var(--accent)) 26%,transparent),transparent 58%),linear-gradient(135deg,var(--ambient-deep),var(--ambient-base) 78%); color: #edf4ff; opacity: 0; visibility: hidden; pointer-events: none; will-change: clip-path,opacity; }
+.scene-title-plane { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; }
+.scene-title-plane::after { content: ''; position: absolute; inset: 0; border: 1px solid rgb(211 235 255 / .07); background: linear-gradient(120deg,transparent 20%,rgb(205 227 255 / .035) 49%,transparent 52%); pointer-events: none; }
+.scene-title-label { position: relative; z-index: 1; display: grid; justify-items: center; gap: 15px; max-width: 100%; padding: clamp(24px,7vw,96px); text-align: center; color: #edf4ff; }
+.scene-title-number { color: var(--passage-tone,#3ee6ff); font: 500 10px/1 var(--mono); letter-spacing: .2em; }
+.scene-title-curtain-text { display: block; max-width: 100%; color: #edf4ff; font: 820 clamp(70px,12vw,170px)/.9 var(--sans); font-feature-settings: 'ss01' 1; letter-spacing: -.075em; text-align: center; text-transform: uppercase; text-wrap: balance; }
+.scene-title-line { color: rgb(206 220 238 / .7); font: 400 11px/1.5 var(--sans); letter-spacing: .015em; }
+@media (max-width:700px) {
+  .scene-next-wrap { margin-top: 46px; margin-bottom: 20px; }
+  .scene-scroll-cue { font-size: 8px; }
+  .scene-title-label { gap: 12px; padding: 24px; }
+  .scene-title-number { font-size: 8px; }
+  .scene-title-curtain-text { font-size: clamp(48px,15vw,82px); }
+  .scene-title-line { max-width: 28ch; font-size: 10px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .scene-scroll-cue,.scene-scroll-cue-arrow { transition: none; }
+  .scene-scroll-cue { transform: none; }
+}
+
+/* Programmatic focus targets (scene heading, universe, main) keep focus for screen readers but show no ring. */
+[tabindex="-1"]:focus-visible, [data-universe]:focus-visible { outline: none; }
+
+/* In scenes the "scroll to continue" cue floats over the bottom-right corner and takes no layout space,
+   so the last line of content is the true bottom of the scroll area. */
+.scene-mode .scene-next-wrap { display: block; height: 0; margin: 0 auto; }
+.scene-mode .scene-scroll-cue { position: absolute; right: 0; bottom: 14px; }
+/* Reserve a strip at the bottom of the other scenes so the floating cue never covers content. */
+.scene-mode #main > :is(#work, #publications, #moments) { padding-bottom: 72px; }
+.scene-mode #main > :is(#work, #publications, #moments) .scene-scroll-cue { bottom: auto; top: 14px; }
+/* Plain centred cue: just text and a bobbing arrow, no pill. */
+.scene-mode .scene-scroll-cue { left: 0; right: 0; width: max-content; margin-inline: auto; background: none; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 8px 4px; }
+.scene-mode[data-scroll-edge='end'] .scene-scroll-cue-arrow { animation: cue-bob 1.8s ease-in-out infinite; }
+@keyframes cue-bob { 50% { transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) { .scene-mode[data-scroll-edge='end'] .scene-scroll-cue-arrow { animation: none; } }

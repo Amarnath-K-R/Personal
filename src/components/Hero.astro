@@ -1,0 +1,32 @@
+---
+import DisplayText from './DisplayText.astro';
+import Portrait from './Portrait.astro';
+import About from './About.astro';
+import Contact from './Contact.astro';
+import SceneNext from './SceneNext.astro';
+---
+<section class="hero combined-opening" id="top" data-sec="About & me" data-atmosphere="atmosphere" aria-labelledby="hero-title">
+  <div class="opening-summary">
+    <Portrait opening />
+    <a class="opening-contact" href="#contact">Contact <span aria-hidden="true">↓</span></a>
+    <div class="opening-reading-shade" aria-hidden="true"></div>
+    <div class="hero-inner content-width">
+      <div class="hero-opening">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> Kochi, India · Research & practice</p>
+        <h1 id="hero-title" class="name-composition" aria-label="Amarnath K R"><DisplayText text="Amarnath" class="hero-name-word" />{' '}<span class="hero-name-initials"><em>K R.</em></span></h1>
+        <p class="hero-profession">Computational scientist in biomedical AI.</p>
+        <p class="hero-deck">I work on retinal imaging, multiomics and local clinical AI—building methods to understand biological signals and tools that support clinical care.</p>
+        <p class="opening-role">Research Associate · AIMS Ophthalmology<br /><span>Research alongside Dr Michael P Snyder · Stanford Genetics</span></p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#work">Explore my projects <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#about">My focus & approach <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="hero-baseline"><span class="opening-baseline-note">Biology, computation, and care.</span><a class="hero-scroll" href="#about" aria-label="Read my focus and approach"><span>A little more about me</span><i aria-hidden="true"></i></a></div>
+    </div>
+    <span class="opening-photo-note" aria-hidden="true">AMARNATH / KOCHI</span>
+  </div>
+  <About />
+  <Contact />
+  <SceneNext href="#work" kicker="NEXT / 02" label="Projects" />
+</section>

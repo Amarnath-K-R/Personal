@@ -1,0 +1,10 @@
+/* Intro-specific rules are kept separate so the static content remains readable without JS. */
+.intro { position: fixed; z-index: 60; inset: 0; display: grid; place-items: center; background: var(--bg); visibility: visible; }
+.intro-frame { width: min(1000px,100vw); height: auto; overflow: visible; }
+.intro-guides path { vector-effect: non-scaling-stroke; }
+.intro-name,.intro-kr { fill: var(--bg); stroke: url(#intro-gradient); stroke-width: 1.25; paint-order: stroke fill; font-family: var(--serif); font-size: 105px; letter-spacing: -.035em; }
+.intro-kr { font-style: italic; font-size: 92px; }
+.intro-tagline { fill: var(--muted); font: 500 14px var(--mono); letter-spacing: .12em; }
+.intro-skip { position: absolute; top: 24px; right: var(--gutter); min-height: 40px; padding: .5rem .8rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--surface); font: 500 .7rem var(--mono); cursor: pointer; }
+@media(max-width:600px){.intro-frame{width:140vw;max-width:none}.intro-name{font-size:115px}.intro-kr{font-size:100px}}
+@media(prefers-reduced-motion:reduce){.intro{display:none}}

@@ -1,0 +1,17 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  kicker?: string;
+  final?: boolean;
+}
+const { href, label, final = false } = Astro.props;
+const visibleCopy = final ? 'Scroll to return to About' : 'Scroll to continue';
+const accessibleCopy = final ? `Scroll to return to ${label}, or activate this link` : `Scroll to continue to ${label}, or activate this link`;
+---
+<div class="scene-next-wrap content-width">
+  <a class="scene-scroll-cue" href={href} data-scene-next data-scroll-cue data-next-label={label} data-final={final ? 'true' : undefined} aria-label={accessibleCopy}>
+    <span class="scene-scroll-cue-text" data-scroll-cue-text>{visibleCopy}</span>
+    <span class="scene-scroll-cue-arrow" aria-hidden="true">↓</span>
+  </a>
+</div>

@@ -1,0 +1,24 @@
+---
+import { profile, profileLinks, profilePosts } from '../data/site';
+import DisplayText from './DisplayText.astro';
+---
+<section class="contact-section" id="contact" data-sec="Contact" aria-labelledby="contact-title">
+  <div class="contact-inner content-width">
+    <p class="eyebrow"><span class="eyebrow-index">02</span> Get in touch</p>
+    <h2 id="contact-title" data-reveal aria-label="Good questions travel well."><DisplayText text="Good questions" /><br /><DisplayText text="travel " /><em>well.</em></h2>
+    <p class="contact-lede">Open to conversations with researchers, clinicians and people building more thoughtful clinical AI.</p>
+    <div class="contact-addresses">
+      <button type="button" class="email-copy" data-copy={profile.emailAmrita} aria-label={`Copy ${profile.emailAmrita}`}><span>{profile.emailAmrita}</span><small>Copy address</small><i aria-hidden="true">↗</i></button>
+      <button type="button" class="email-copy" data-copy={profile.emailStanford} aria-label={`Copy ${profile.emailStanford}`}><span>{profile.emailStanford}</span><small>Copy address</small><i aria-hidden="true">↗</i></button>
+    </div>
+    <a class="contact-mail" href={`mailto:${profile.emailAmrita}`}>Or start an email <span aria-hidden="true">↗</span></a>
+  </div>
+  <footer class="site-footer content-width">
+    <div class="footer-signature"><span class="signature-mark" aria-hidden="true">A<span>K</span>R</span><span>Amarnath K R<br />Biomedical AI</span></div>
+    <div class="footer-place">KOCHI <time data-clock>--:--</time> IST <span aria-hidden="true">·</span> {profile.coordinates}</div>
+    <div class="footer-links" aria-label="Research and professional profiles">
+      <a href={profileLinks.stanford} target="_blank" rel="noopener noreferrer">Stanford profile ↗</a><a href={profileLinks.orcid} target="_blank" rel="noopener noreferrer">ORCID ↗</a><a href={profileLinks.scopus} target="_blank" rel="noopener noreferrer">Scopus ↗</a><a href={profileLinks.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href={profileLinks.researchgate} target="_blank" rel="noopener noreferrer">ResearchGate ↗</a><a href={profilePosts.facebook} target="_blank" rel="noopener noreferrer">Amrita announcement ↗</a><a href={profilePosts.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+    </div>
+    <p class="copyright">© <span id="current-year"></span> Amarnath K R</p>
+  </footer>
+</section>

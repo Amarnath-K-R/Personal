@@ -1,0 +1,60 @@
+---
+import { areas } from '../data/site';
+import DisplayText from './DisplayText.astro';
+const { project, index, next, standalone = false } = Astro.props;
+const data = project.data;
+const area = areas[data.area];
+const titleId = `chapter-title-${project.id}`;
+const detailId = `chapter-detail-${project.id}`;
+const hasDetail = Boolean(data.built && data.numbers && data.record);
+const num = String(index + 1).padStart(2, '0');
+const chapterArt: Record<string, string> = {
+  'hpop-cell-2026': '/manus-storage/async-images/tFH6q0rV1yAqA7rrk4IfCu/image-2.webp',
+  'ckd-from-fundus': '/manus-storage/async-images/tFH6q0rV1yAqA7rrk4IfCu/image-3.webp',
+  aidpulse: '/manus-storage/async-images/tFH6q0rV1yAqA7rrk4IfCu/image-4.webp',
+};
+---
+<article class:list={["chapter", standalone && "chapter-standalone"]} data-chapter data-slug={project.id} data-area={data.area} style={`--chapter-accent:${area.hex}`} aria-hidden={standalone ? 'false' : 'true'} hidden={!standalone} inert={!standalone}>
+  <div class="chapter-shell">
+    <div class="chapter-topbar">
+      <p class="chapter-brand"><span class="signature-mark" aria-hidden="true">A<span>K</span>R</span><span>Case study <b>{num}</b> / 09</span></p>
+      {standalone ? <a class="chapter-close" href="/#work">All work <span aria-hidden="true">↗</span></a> : <button class="chapter-close" type="button" data-close-project>Close <span aria-hidden="true">×</span></button>}
+    </div>
+    <header class="chapter-hero">
+      <div class="chapter-hero-copy">
+        <p class="chapter-area"><span></span>{area.label} <i aria-hidden="true">·</i> {data.venue} <i aria-hidden="true">·</i> {data.status}{data.year ? ` · ${data.year}` : ''}</p>
+        <h1 class="chapter-title" id={titleId} aria-label={data.title}><DisplayText text={data.title} /></h1>
+        {data.with && <p class="chapter-with">{data.with}</p>}
+        <p class="chapter-question">{data.question}</p>
+      </div>
+      <figure class="chapter-art">
+        {chapterArt[project.id]
+          ? <img src={chapterArt[project.id]} alt="" loading={standalone ? 'eager' : 'lazy'} />
+          : <canvas class="generated-cover" data-cover data-seed={project.id} data-area={data.area} aria-hidden="true"></canvas>}
+        <figcaption>Conceptual artwork · not a patient image</figcaption>
+      </figure>
+      {hasDetail && <a class="chapter-scroll-cue" href={`#${detailId}`}>Explore the work <span aria-hidden="true">↓</span></a>}
+    </header>
+    {hasDetail && <section class="chapter-detail content-width" id={detailId}>
+      <div class="chapter-detail-heading"><p class="eyebrow">The work</p><p class="chapter-role">{data.role} <span>·</span> {data.venue}</p></div>
+      <div class="chapter-built"><p class="chapter-subhead">What I built</p><p>{data.built}</p></div>
+      <div class="chapter-numbers" aria-label="Key project figures">
+        {data.numbers.map((number: any) => <div class="chapter-number"><strong>{number.value}</strong><span>{number.label}</span></div>)}
+      </div>
+      <section class="record-panel" aria-labelledby={`record-${project.id}`}>
+        <div><p class="eyebrow">What the record supports</p><h2 id={`record-${project.id}`}>Evidence before conclusion.</h2></div>
+        <div class="record-copy"><div><p class="chapter-subhead">Claim</p><p>{data.record.claim}</p></div><div><p class="chapter-subhead">Evidence</p><p>{data.record.evidence}</p></div>{data.record.limits && <div class="record-limit"><p class="chapter-subhead">Limits, stated plainly</p><p>{data.record.limits}</p></div>}</div>
+      </section>
+      <div class="chapter-links">
+        {data.links.doi && <><a class="source-link" href={`https://doi.org/${data.links.doi}`} target="_blank" rel="noreferrer">Read the paper · DOI <span aria-hidden="true">↗</span></a><button class="copy-link" type="button" data-copy={`https://doi.org/${data.links.doi}`} aria-label={`Copy DOI for ${data.title}`}>Copy DOI</button></>}
+        {data.links.pubmed && <a class="source-link" href={`https://pubmed.ncbi.nlm.nih.gov/${data.links.pubmed}/`} target="_blank" rel="noreferrer">PubMed record <span aria-hidden="true">↗</span></a>}
+        {data.links.url && <a class="source-link" href={data.links.url} target="_blank" rel="noreferrer">Project link <span aria-hidden="true">↗</span></a>}
+      </div>
+    </section>}
+    {next && <a class="next-project" href={`/work/${next.project.id}/`} data-next-project={next.project.id}>
+      <span class="eyebrow">Next case <b>{String(next.index + 1).padStart(2, '0')} / 09</b></span>
+      <strong>{next.project.data.title}</strong>
+      <span class="next-arrow" aria-hidden="true">↗</span>
+    </a>}
+  </div>
+</article>

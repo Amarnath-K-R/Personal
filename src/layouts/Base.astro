@@ -1,0 +1,65 @@
+---
+import { profile, profileLinks, profilePosts } from '../data/site';
+import '../styles/global.css';
+import '../styles/liquid.css';
+import '../styles/spatial.css';
+import '../styles/journey.css';
+import '../styles/modern.css';
+import '../styles/scenes.css';
+import '../styles/observatory.css';
+import '../styles/artistic.css';
+import '../styles/opening.css';
+import LiquidAtmosphere from '../components/LiquidAtmosphere.astro';
+import Journey from '../components/Journey.astro';
+const { title = 'Amarnath K R · Researcher in Biomedical AI', description = 'Amarnath K R (Amar) is a researcher in biomedical AI, working across retinal imaging, multiomics and clinical software.', projectArea = null, noindex = false } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  alternateName: ['Amarnath KR', 'Amarnath K.R.', 'Amar'],
+  jobTitle: 'Researcher',
+  description: profile.bio,
+  url: new URL('/', Astro.site).href,
+  sameAs: Object.values(profileLinks),
+  subjectOf: Object.values(profilePosts).map((u) => ({ '@type': 'WebPage', url: u })),
+  affiliation: [
+    { '@type': 'Organization', name: 'Amrita Institute of Medical Sciences' },
+    { '@type': 'Organization', name: 'Stanford University' },
+  ],
+  knowsAbout: ['Biomedical AI', 'Deep learning', 'Retinal imaging', 'Multiomics', 'Clinical software'],
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#05070d" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <link rel="canonical" href={url} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Amarnath K R" />
+    <meta property="og:url" content={url} />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+  </head>
+  <body data-project-area={projectArea ?? ''} data-atmosphere="atmosphere" data-atmosphere-mode="auto">
+    <LiquidAtmosphere />
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell" id="site-shell">
+      <slot />
+    </div>
+    <slot name="overlay" />
+    <Journey />
+    <div class="toast-message" id="toast-message" role="status" aria-live="polite"></div>
+    <script>
+      import '../scripts/site.ts';
+    </script>
+  </body>
+</html>

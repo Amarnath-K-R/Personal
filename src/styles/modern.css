@@ -1,0 +1,40 @@
+:root { --serif: var(--sans); }
+h1, h2, h3 { font-family: var(--sans); }
+h1 em, h2 em, h3 em { font-style: normal; }
+.brand-monogram { font-family: var(--sans); font-size: 23px; font-weight: 600; letter-spacing: -.095em; }
+.brand-lockup { gap: 14px; }
+.hero h1 { font-size: clamp(91px,10vw,144px); font-weight: 570; line-height: .96; letter-spacing: -.085em; margin-left: -6px; }
+.hero h1 em { font-weight: 480; font-style: normal; }
+.hero-profession { font-size: clamp(19px,1.7vw,24px); letter-spacing: -.035em; }
+.hero .hero-deck { font-size: 14px; line-height: 1.8; }
+.about-opening h2 { max-width: none; font: 530 clamp(51px,6.7vw,96px)/1.04 var(--sans); letter-spacing: -.07em; }
+.about-lede { font: 420 clamp(24px,2.2vw,31px)/1.4 var(--sans); letter-spacing: -.04em; }
+.research-focus h3 { font: 530 27px/1.1 var(--sans); letter-spacing: -.045em; }
+.principle h3 { font-family: var(--sans); font-size: 21px; font-weight: 500; line-height: 1.2; letter-spacing: -.035em; }
+.profile-signature p { font-weight: 500; letter-spacing: -.055em; }
+.universe-heading h2 { font: 550 clamp(58px,6.9vw,99px)/1 var(--sans); letter-spacing: -.075em; }
+.universe-heading h2 em { font-weight: 470; }
+.universe-inspector h3 { font: 470 clamp(23px,2.25vw,33px)/1.16 var(--sans); letter-spacing: -.045em; }
+[data-view='list'] .node-full-title { font: 480 23px/1.15 var(--sans); letter-spacing: -.035em; }
+.publication-section h2, .moments-section h2 { font: 550 clamp(54px,6.9vw,100px)/1.02 var(--sans); letter-spacing: -.075em; }
+.paper-row h3 { font-family: var(--sans); font-weight: 480; font-size: clamp(20px,2vw,27px); line-height: 1.15; letter-spacing: -.035em; }
+.contact-section h2 { font-family: var(--sans); font-weight: 550; font-size: clamp(57px,8.3vw,119px); letter-spacing: -.075em; line-height: 1; }
+.chapter-title { font: 530 clamp(42px,5.5vw,80px)/1.04 var(--sans); letter-spacing: -.065em; }
+.chapter-subtitle { font-family: var(--sans); font-weight: 450; letter-spacing: -.035em; font-size: clamp(20px,2.1vw,30px); }
+.chapter-lede { font: 420 clamp(24px,2.5vw,36px)/1.35 var(--sans); letter-spacing: -.045em; }
+.chapter-block h2 { font-family: var(--sans); font-weight: 500; font-size: 24px; letter-spacing: -.045em; }
+.next-project strong { font: 500 clamp(24px,3vw,42px)/1.1 var(--sans); letter-spacing: -.05em; }
+.signature-mark { font-family: var(--sans); font-weight: 550; letter-spacing: -.075em; }
+@media (max-width:700px) {
+  .hero h1 { font-size: clamp(59px,17.9vw,83px); line-height: .99; margin-left: -3px; }
+  .hero .hero-deck { font-size: 13px; }
+  .about-opening h2 { font-size: clamp(43px,11.1vw,59px); line-height: 1.07; }
+  .about-lede { font-size: 24px; }
+  .universe-heading h2 { font-size: clamp(50px,13.7vw,71px); line-height: 1.03; }
+  .universe-inspector h3 { font-size: 26px; }
+  .publication-section h2, .moments-section h2 { font-size: 49px; }
+  .paper-row h3 { font-size: 20px; }
+  .contact-section h2 { font-size: 56px; }
+  .chapter-title { font-size: 39px; line-height: 1.06; }
+  .chapter-lede { font-size: 24px; }
+}

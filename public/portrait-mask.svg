@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 756 900" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="-10" y1="0" x2="430" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset=".25" stop-color="#000" stop-opacity=".07"/>
+      <stop offset=".5" stop-color="#000" stop-opacity=".34"/>
+      <stop offset=".75" stop-color="#000" stop-opacity=".74"/>
+      <stop offset="1" stop-color="#000" stop-opacity="1"/>
+    </linearGradient>
+    <filter id="f" x="-40%" y="-40%" width="180%" height="180%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="4" seed="23" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="270" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation="24"/>
+    </filter>
+  </defs>
+  <rect x="-300" y="-400" width="1500" height="1700" fill="url(#g)" filter="url(#f)"/>
+</svg>

@@ -1,0 +1,6 @@
+---
+interface Props { text: string; class?: string; }
+const { text, class: className = '' } = Astro.props;
+const parts = text.match(/\S+|\s+/gu) || [];
+---
+<span class:list={['display-text', className]}>{parts.map((part) => /^\s+$/u.test(part) ? part : <span class="display-word">{Array.from(part).map((letter) => <span class="display-char" data-letter={letter.toUpperCase()}>{letter}</span>)}</span>)}</span>

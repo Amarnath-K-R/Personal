@@ -1,0 +1,58 @@
+---
+import { areas } from '../data/site';
+import type { CollectionEntry } from 'astro:content';
+import DisplayText from './DisplayText.astro';
+import SceneNext from './SceneNext.astro';
+interface Props { projects: CollectionEntry<'projects'>[] }
+const { projects } = Astro.props;
+const points = [
+  [-.29, -.25, 55], [.01, -.33, -60], [.30, -.22, 35],
+  [.32, .09, -55], [.02, .01, 105], [-.30, .13, -25],
+  [-.15, .34, 35], [.20, .32, -45], [-.36, -.06, -90],
+];
+const labels: Record<string, string> = {
+  'hpop-cell-2026': 'HPOP · Multiomics', 'vivome-atlas': 'VivOME Atlas',
+  iksha: 'Iksha', aidpulse: 'AidPulse', 'ckd-from-fundus': 'CKD from the retina',
+  'cad-preprocessing': 'CAD imaging', 'ed-notes-gpt': 'ED notes & GPT',
+  'se-conformer': 'SE-Conformer', 'safety-by-design': 'Safety by Design',
+};
+const nodeColors: Record<string, string> = { imaging: '#a3caff', omics: '#b5e69a', clinical: '#ffb799', trust: '#d8c7ee' };
+const filters = [{ key: 'all', label: 'All projects' }, ...Object.entries(areas).map(([key, area]) => ({ key, label: area.label }))];
+---
+<section class="work-universe" id="work" data-sec="Projects" aria-labelledby="work-title">
+  <div class="universe-heading content-width">
+    <p class="eyebrow"><span class="eyebrow-index">02</span> The work</p>
+    <div class="universe-heading-grid">
+      <h2 id="work-title" aria-label="A universe of questions."><DisplayText text="A universe" /><br /><DisplayText text="of " /><em>questions.</em></h2>
+      <p>Nine projects. Different scales, connected by a common question: what can the evidence tell us? Explore the space and open any project for the work behind it.</p>
+    </div>
+  </div>
+  <div class="universe-shell content-width" data-universe data-view="spatial">
+    <div class="universe-stage" data-universe-stage aria-label="Interactive project constellation" aria-describedby="universe-help">
+      <canvas class="universe-stars" data-universe-canvas aria-hidden="true"></canvas>
+      <div class="universe-orbits" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="universe-core" aria-hidden="true"><span></span><i></i></div>
+      <span class="universe-coordinate" aria-hidden="true">COMPUTATION / BIOLOGY / CARE</span>
+      <div class="universe-nodes" data-universe-nodes>
+        {projects.map((project, index) => {
+          const data = project.data;
+          const point = points[index];
+          return <a class="project-node" href={`/work/${project.id}/`} data-project-link={project.id} data-universe-node data-area={data.area}
+            data-x={point[0]} data-y={point[1]} data-z={point[2]} data-index={index}
+            data-title={data.title} data-question={data.question} data-meta={`${data.role} · ${data.venue} · ${data.status}${data.year ? ` · ${data.year}` : ''}`}
+            style={`--node-color:${nodeColors[data.area]};--fallback-x:${50 + point[0] * 100}%;--fallback-y:${50 + point[1] * 100}%`}
+            aria-label={`${data.title}. ${data.venue}, ${data.status}. Open case study.`}>
+            <span class="node-signal" aria-hidden="true"><i></i><b>{String(index + 1).padStart(2, '0')}</b></span>
+            <span class="node-label"><small>{areas[data.area].label}</small><strong>{labels[project.id] || data.short}</strong><span class="node-status">{data.venue} <i aria-hidden="true">·</i> {data.status}</span></span>
+            <span class="node-direction" aria-hidden="true">↗</span>
+            <span class="node-full-title">{data.title}</span>
+          </a>;
+        })}
+      </div>
+    </div>
+    <div class="universe-bottomline">
+      <p id="universe-help"><span class="universe-count" data-universe-count>09 / 09</span><span class="universe-instructions">Select a project to explore its methods and evidence.</span></p>
+    </div>
+  </div>
+  <SceneNext href="#publications" kicker="NEXT / 03" label="Research" />
+</section>

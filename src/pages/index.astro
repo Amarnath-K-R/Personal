@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Work from '../components/Work.astro';
+import Chapter from '../components/Chapter.astro';
+import Publications from '../components/Publications.astro';
+import Moments from '../components/Moments.astro';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const nextFor = (index: number) => ({ project: projects[(index + 1) % projects.length], index: (index + 1) % projects.length });
+---
+<Base>
+  <main id="main">
+    <Hero />
+    <Work projects={projects} />
+    <Publications />
+    <Moments />
+  </main>
+  <div slot="overlay" class="project-overlay" id="project-overlay" hidden inert role="dialog" aria-modal="true" aria-label="Project case study">
+    <div class="overlay-scroll" data-lenis-prevent>
+      {projects.map((project, index) => <Chapter project={project} index={index} next={nextFor(index)} />)}
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/components/Hero.astro"
+        ],
+        "createdAt": "2026-11-08T16:21:02.932Z",
+        "reason": "user asked for rich gradients; approved plan specifies gradient on the hero surname as the signature accent"
+      }
+    ]
+  }
+}

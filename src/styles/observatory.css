@@ -1,0 +1,10 @@
+/* The combined opening stays particle-free; other areas retain sparse local companions. */
+.liquid-atmosphere { background: var(--ambient-base); }
+.liquid-stage { z-index: 0; contain: layout; }
+.liquid-stage::before,.liquid-stage .orb-aura,.liquid-stage .liquid-orb,.liquid-stage .orb-fluid,.liquid-stage .orb-dark-core,.liquid-stage .orb-sheen,.liquid-stage .orb-edge { display: none !important; }
+.liquid-stage .orb-orbit { display: none; }
+.observatory-decor { display: none; }
+.hero h1,.hero-profession,.hero-deck { text-shadow: 0 0 14px var(--ambient-deep),0 0 5px var(--ambient-deep); }
+.floating-disciplines { z-index: 4; }
+.site-shell { z-index: 2; }
+.project-overlay { z-index: 120; }

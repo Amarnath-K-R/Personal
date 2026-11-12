@@ -1,0 +1,60 @@
+body.scene-mode { height: 100dvh; overflow: hidden; }
+.scene-mode .site-shell { height: 100dvh; }
+.scene-mode #main { position: fixed; inset: 0; height: auto; overflow: hidden; isolation: isolate; }
+.scene-mode #main > section { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgb(150 180 222 / .26) transparent; padding-top: 0; padding-bottom: 0; scroll-behavior: auto; }
+.scene-mode #main > section[hidden] { display: none !important; }
+.scene-mode .hero { padding: 0; }
+.scene-mode .hero-inner { min-height: 100%; padding-top: 28px; padding-bottom: 70px; }
+.scene-mode .hero h1 { font-size: clamp(84px,8.2vw,119px); margin-top: 24px; }
+.scene-mode .hero-opening { width: 58%; }
+.scene-mode .hero .hero-deck { max-width: 44ch; }
+.scene-mode .hero-baseline { bottom: 12px; }
+.scene-mode .atmosphere-console { margin-top: 25px; }
+.scene-mode .liquid-stage { top: 18px; }
+.scene-mode .floating-disciplines { top: 0; }
+.scene-mode .about-topline { margin-bottom: 35px; }
+.scene-mode .about-opening h2 { font-size: clamp(50px,5.1vw,74px); }
+.scene-mode .about-opening { margin-bottom: 36px; }
+.scene-mode .about-story { margin-top: 32px; }
+.scene-mode .universe-heading { padding-top: 5px; padding-bottom: 36px; }
+.scene-mode .universe-stage { height: max(420px,calc(var(--scene-height,700px) - 158px)); min-height: 420px; }
+.scene-mode .universe-node { padding: 12px 14px; min-height: 88px; }
+.scene-mode .node-meta { font-size: 8px; }
+.scene-mode .universe-inspector { margin-bottom: 24px; }
+.scene-mode .publication-section, .scene-mode .moments-section { padding-top: 18px; }
+.scene-mode .contact-section { padding-top: 36px; padding-bottom: 28px; }
+.scene-mode .contact-section h2 { font-size: clamp(60px,7.2vw,105px); }
+.scene-mode .project-node { min-height: 89px; padding: 11px 12px; }
+.scene-mode .node-status { font-size: 8px; }
+@media (max-width:700px) {
+  .scene-mode #main { inset: 0; }
+  .scene-mode #main > section { padding-top: 0; padding-bottom: 0; }
+  .scene-mode .hero { padding: 0; }
+  .scene-mode .hero-inner { padding-top: 20px; }
+  .scene-mode .hero-opening { width: 100%; }
+  .scene-mode .hero h1 { font-size: clamp(58px,16.2vw,78px); }
+  .scene-mode .liquid-stage { top: 455px; }
+  .scene-mode .floating-disciplines { top: 475px; }
+  .scene-mode .about-opening h2 { font-size: 42px; }
+  .scene-mode .universe-stage { height: 1010px; min-height: 1010px; }
+  .scene-mode .universe-node { min-height: 84px; }
+  .scene-mode .contact-section h2 { font-size: 51px; }
+  .scene-mode .project-node { min-height: 85px; padding: 10px 8px; }
+}
+.scene-mode [data-view='list'] .universe-stage { height: auto; min-height: 0; }
+.scene-mode [data-view='list'] .project-node { min-height: 153px; }
+
+/* Research and Notes sections are full-width scenes: restore the content gutter so text does not hug the left edge. */
+.scene-mode #main > .publication-section { padding-inline: max(var(--gutter), calc((100% - var(--content)) / 2)); }
+
+/* Projects scene (space view): one screen, no inner scroll. Scrolling past it moves straight to the next scene. */
+@media (min-width: 701px) {
+  .scene-mode #work:has([data-view='spatial']) { display: flex; flex-direction: column; overflow-y: hidden; padding-bottom: 52px; }
+  .scene-mode #work:has([data-view='spatial']) .universe-heading { flex: none; padding-top: 0; padding-bottom: 6px; }
+  .scene-mode #work:has([data-view='spatial']) .universe-heading h2 { font-size: clamp(38px, min(5vw, 7.4svh), 72px); }
+  .scene-mode #work:has([data-view='spatial']) .universe-shell { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .scene-mode #work:has([data-view='spatial']) .universe-toolbar, .scene-mode #work:has([data-view='spatial']) .universe-bottomline { flex: none; }
+  .scene-mode #work:has([data-view='spatial']) .universe-stage { flex: 1; height: auto; min-height: 0; margin-top: 4px; }
+  .scene-mode #work:has([data-view='spatial']) .scene-scroll-cue { top: 4px; }
+}
+@media (min-width: 701px) and (max-height: 780px) { .scene-mode #work:has([data-view='spatial']) .universe-heading-grid > p { display: none; } }

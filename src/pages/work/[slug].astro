@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Chapter from '../../components/Chapter.astro';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  return projects.map((project, index) => ({ params: { slug: project.id }, props: { project, index, next: { project: projects[(index + 1) % projects.length], index: (index + 1) % projects.length } } }));
+}
+const { project, index, next } = Astro.props;
+---
+<Base title={`${project.data.title} · Amarnath K R`} projectArea={project.data.area} noindex>
+  <main id="main" class="project-page">
+    <Chapter project={project} index={index} next={next} standalone={true} />
+  </main>
+</Base>
