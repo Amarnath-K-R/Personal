@@ -15,7 +15,8 @@ export const GET: APIRoute = async ({ site }) => {
     '',
     'User-agent: Googlebot-Image',
     'Disallow: /',
-    'Allow: /favicon.svg',
+    'Allow: /favicon', // .svg and .ico
+    'Allow: /apple-touch-icon.png',
     `Allow: ${profile.photo}`,
     ...photos.map((path) => `Allow: ${path}`),
     '',
