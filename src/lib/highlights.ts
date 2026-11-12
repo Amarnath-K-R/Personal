@@ -10,14 +10,14 @@ type Item = { el: HTMLElement; x: number; y: number; w: number; h: number };
 
 const mod = (n: number, m: number) => ((n % m) + m) % m;
 const FADED = '.hl-copy, .hl-credit';
-const DRIFT = 36; // px per second, left to right
+const DRIFT = -36; // px per second; negative = right to left
 const LABEL = 44; // room kept free around a slab, so the cards stay the size they were when a label sat under them
 const HANG = [-.6, .5, -.2, .7, -.45, .25]; // fixed heights on the centre line, so every slab keeps its place
 // Width of a stack `height` px tall overall: the photo, the card's 2.2% / 17% borders, and the label.
 const fit = (el: HTMLElement, height: number) => (height - LABEL) / (.956 / Number(el.dataset.ar) + .192);
 
 // The Highlights rail (desktop, fine pointer, motion allowed): one row of big glass slabs hung along a centre line,
-// drifting left to right in an endless loop. Wheel and drag push it; hovering a slab pauses it. Phones, touch and
+// drifting right to left in an endless loop. Wheel and drag push it; hovering a slab pauses it. Phones, touch and
 // reduced motion get a plain finite grid. Each slab opens its post in a dialog and pushes /highlights/<slug>/,
 // which is also a real page for no-JS and search.
 export function initHighlights() {
@@ -100,7 +100,7 @@ export function initHighlights() {
       observer = Observer.create({
         target: stage, type: 'wheel,touch,pointer', tolerance: 2,
         // The wheel pushes the rail along its drift; a sideways swipe or a drag moves it with the hand.
-        onWheel: (self) => { target += self.deltaY - self.deltaX; },
+        onWheel: (self) => { target -= self.deltaY + self.deltaX; },
         onPress: () => { dragDistance = 0; },
         onDrag: (self) => { target += self.deltaX; dragDistance += Math.abs(self.deltaX) + Math.abs(self.deltaY); },
       });
@@ -143,7 +143,7 @@ export function initHighlights() {
     const step = ({ ArrowRight: 180, ArrowDown: 180, ArrowLeft: -180, ArrowUp: -180, PageDown: page, PageUp: -page } as Record<string, number>)[event.key];
     if (step === undefined) return;
     event.preventDefault();
-    target += step;
+    target -= step; // Right, Down and Page Down go the way the rail drifts
   });
   // Tabbing to a stack brings it to the middle by the shortest way round.
   // Keyboard focus only: a mouse press also focuses the link, and must not stop or jump the wall.
