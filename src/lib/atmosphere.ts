@@ -29,7 +29,7 @@ export function initAtmosphere() {
   let tween: gsap.core.Tween | null = null;
   let frame = 0;
   let anchors: { y: number; key: AtmosphereKey }[] = [];
-  const defaults: Record<string, AtmosphereKey> = { top: 'night', about: 'atmosphere', work: 'violet', publications: 'verdant', moments: 'neon', contact: 'atmosphere' };
+  const defaults: Record<string, AtmosphereKey> = { top: 'night', about: 'atmosphere', work: 'violet', publications: 'verdant', products: 'ember', moments: 'neon', contact: 'atmosphere' };
   const sections = [...document.querySelectorAll<HTMLElement>('main > section[id]')];
   let sceneId = body.dataset.scene || '';
 

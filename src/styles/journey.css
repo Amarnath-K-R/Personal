@@ -35,8 +35,8 @@
 .scene-mode .scene-next-wrap { display: block; height: 0; margin: 0 auto; }
 .scene-mode .scene-scroll-cue { position: absolute; right: 0; bottom: 14px; }
 /* Reserve a strip at the bottom of the other scenes so the floating cue never covers content. */
-.scene-mode #main > :is(#work, #publications, #moments) { padding-bottom: 72px; }
-.scene-mode #main > :is(#work, #publications, #moments) .scene-scroll-cue { bottom: auto; top: 14px; }
+.scene-mode #main > :is(#work, #publications, #products, #moments) { padding-bottom: 72px; }
+.scene-mode #main > :is(#work, #publications, #products, #moments) .scene-scroll-cue { bottom: auto; top: 14px; }
 /* Plain centred cue: just text and a bobbing arrow, no pill. */
 .scene-mode .scene-scroll-cue { left: 0; right: 0; width: max-content; margin-inline: auto; background: none; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 8px 4px; }
 .scene-mode[data-scroll-edge='end'] .scene-scroll-cue-arrow { animation: cue-bob 1.8s ease-in-out infinite; }

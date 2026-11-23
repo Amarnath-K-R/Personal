@@ -5,6 +5,7 @@ import Hero from '../components/Hero.astro';
 import Work from '../components/Work.astro';
 import Chapter from '../components/Chapter.astro';
 import Publications from '../components/Publications.astro';
+import Products from '../components/Products.astro';
 import Moments from '../components/Moments.astro';
 import HighlightPost from '../components/HighlightPost.astro';
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
@@ -16,6 +17,7 @@ const highlights = (await getCollection('highlights')).sort((a, b) => a.data.ord
     <Hero />
     <Work projects={projects} />
     <Publications />
+    <Products />
     <Moments />
   </main>
   <div slot="overlay" class="project-overlay" id="project-overlay" hidden inert role="dialog" aria-modal="true" aria-label="Project case study">

@@ -18,6 +18,7 @@ const imageUrl = image ? new URL(image, Astro.site).href : null;
 const person = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': new URL('/#person', Astro.site).href,
   name: profile.name,
   image: new URL(profile.photo, Astro.site).href,
   alternateName: ['Amarnath KR', 'Amarnath K.R.', 'Amar'],

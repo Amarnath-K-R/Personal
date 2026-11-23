@@ -187,6 +187,26 @@ export const publications: Publication[] = [
   },
 ];
 
+// Wording follows margalink.com itself; check it there before changing any claim.
+export const products = [
+  {
+    name: 'MargaLink',
+    url: 'https://margalink.com',
+    status: 'Beta',
+    tagline: 'Find your path.',
+    note: 'Marga is Sanskrit for “path”.',
+    summary: 'Find the journals that fit your paper, check it against their rules and write it in their template, without your manuscript ever leaving the browser.',
+    facts: ['Private by default', 'Free to match, check and write'],
+    tools: [
+      { name: 'Browse journals', line: 'By field, fees, open access and indexing. No upload needed.' },
+      { name: 'Match your paper', line: 'Ranks thousands of journals on your device and shows why each one fits.' },
+      { name: 'Review', line: 'An optional second read before you submit. It sends only what you approve.' },
+      { name: 'Write', line: 'Your journal’s template from the first draft, compiled in the browser.' },
+      { name: 'Figures', line: 'Publication-ready charts, straight from your spreadsheet.' },
+    ],
+  },
+];
+
 export const publicationGroups = [
   { label: 'All', count: 11, key: 'all' },
   { label: 'Published', count: 4, key: 'Published' },

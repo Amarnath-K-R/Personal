@@ -2,6 +2,7 @@ export const scenePassages = {
   top: { name: 'About & me', line: 'The person behind the questions.', tone: '#2855ff', mask: 'iris' },
   work: { name: 'Projects', line: 'Nine questions. One connected practice.', tone: '#8791a2', mask: 'iris' },
   publications: { name: 'Research', line: 'Methods become a record.', tone: '#45c958', mask: 'shutter' },
+  products: { name: 'Products', line: 'Research, turned into tools.', tone: '#ff7a1a', mask: 'split' },
   moments: { name: 'Highlights', line: 'Highlights from the journey.', tone: '#1f51ff', mask: 'ribbon' },
 } as const;
 
